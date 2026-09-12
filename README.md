@@ -1,630 +1,512 @@
-\# 🚀 DocIntel AI — LLM-Powered Enterprise Document Intelligence
+# 🚀 DocIntel AI
 
+## LLM-Powered Enterprise Document Intelligence & RAG
 
+**DocIntel AI** is an **LLM-powered enterprise document intelligence and Retrieval-Augmented Generation (RAG) platform** built with Python, Streamlit, Qdrant, BGE-M3, BGE Reranker, and **Qwen 2.5 7B** running locally through Ollama.
 
+The system transforms unstructured PDF documents into **searchable knowledge, structured information, and grounded AI answers with document- and page-level citations**.
 
+---
 
-\*\*DocIntel AI\*\* is an \*\*LLM-powered enterprise document intelligence and RAG platform\*\* built with Python, Streamlit, Qdrant, BGE-M3, BGE Reranker, and \*\*Qwen 2.5 7B\*\* running locally through Ollama.
+# ✨ Key Highlights
 
+* 🤖 **LLM-powered RAG** using Qwen 2.5 7B + Ollama
+* 🧠 **Semantic search** using BAAI/BGE-M3 embeddings
+* 🔎 **Hybrid retrieval** combining vector search and BM25
+* 🎯 **Cross-encoder reranking** using BGE Reranker
+* 📚 **Source- and page-level citations**
+* 🧩 **Section-aware document parsing and chunking**
+* 🏢 **LLM-based structured document extraction**
+* ✅ **Pydantic schema validation**
+* 📊 **JSON and Excel export**
+* 🔬 **Retrieval evaluation and debugging tools**
+* 💻 **Automatic technical skill classification**
+* 🔒 **Local AI inference through Ollama**
 
+---
 
-
-
-It transforms unstructured PDF documents into \*\*searchable knowledge, structured data, and grounded AI answers with source-level citations\*\*.
-
-
-
-
-
-\## ✨ Key Highlights
-
-
-
-
-
-\- 🤖 \*\*LLM-powered RAG\*\* using Qwen 2.5 7B + Ollama
-
-\- 🧠 \*\*Semantic search\*\* with BAAI/BGE-M3 embeddings
-
-\- 🔎 \*\*Hybrid retrieval\*\* combining vector search and BM25
-
-\- 🎯 \*\*Cross-encoder reranking\*\* with BGE Reranker
-
-\- 📚 \*\*Source and page-level citations\*\*
-
-\- 🧩 \*\*Section-aware document parsing and chunking\*\*
-
-\- 🏢 \*\*LLM-based structured document extraction\*\*
-
-\- ✅ \*\*Pydantic schema validation\*\*
-
-\- 📊 \*\*JSON and Excel export\*\*
-
-\- 🔬 \*\*Retrieval evaluation and debugging tools\*\*
-
-\- 💻 \*\*Automatic technical skill classification\*\*
-
-\- 🔒 \*\*Local AI inference through Ollama\*\*
-
-
-
-
-
-\## 🏗️ Architecture
-
-
-
-
+# 🏗️ Architecture
 
 ```text
-
-&#x20;                   PDF DOCUMENT
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;                PyMuPDF Extraction
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;             Section-Aware Chunking
-
-&#x20;                        │
-
-&#x20;             ┌──────────┴──────────┐
-
-&#x20;             ▼                     ▼
-
-&#x20;       BGE-M3 Embeddings          BM25
-
-&#x20;             │                     │
-
-&#x20;             └──────────┬──────────┘
-
-&#x20;                        ▼
-
-&#x20;                Hybrid RRF Retrieval
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;                 BGE Reranker
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;              Relevant Context
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;                Qwen 2.5 7B
-
-&#x20;                 via Ollama
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;            Grounded Answer + Citations
-
-🔍 RAG Pipeline
-
-
-
-DocIntel AI implements a complete Retrieval-Augmented Generation pipeline:
-
-
-
-PDF text extraction with PyMuPDF
-
-Section-aware document chunking
-
-BGE-M3 semantic embeddings
-
-BM25 lexical retrieval
-
-Hybrid Reciprocal Rank Fusion
-
-BGE cross-encoder reranking
-
-Context-grounded Qwen generation
-
-Document and page-level citations
-
-RRF Configuration
-
-RRF score = 1 / (k + rank)
-
-
-
-
-
-RRF\_K = 60
-
-
-
-Lexical-overlap and section-aware boosts are also applied to improve retrieval for exact technical terms and document-specific queries.
-
-
-
-🤖 LLM Stack
-
-Component	Technology
-
-LLM	Qwen 2.5 7B
-
-LLM Runtime	Ollama
-
-Embeddings	BAAI/BGE-M3
-
-Reranker	BAAI/BGE-Reranker-v2-m3
-
-Vector Database	Qdrant
-
-Lexical Search	BM25
-
-Validation	Pydantic
-
-Interface	Streamlit
-
-
-
-The system is designed around local AI inference, making it suitable for privacy-sensitive document intelligence workflows.
-
-
-
-🏢 Structured Document Intelligence
-
-
+                         PDF DOCUMENT
+                              │
+                              ▼
+                     PyMuPDF Extraction
+                              │
+                              ▼
+                  Section-Aware Chunking
+                              │
+                    ┌─────────┴─────────┐
+                    ▼                   ▼
+              BGE-M3 Embeddings       BM25
+                    │                   │
+                    └─────────┬─────────┘
+                              ▼
+                    Hybrid RRF Retrieval
+                              │
+                              ▼
+                       BGE Reranker
+                              │
+                              ▼
+                    Relevant Context
+                              │
+                              ▼
+                       Qwen 2.5 7B
+                        via Ollama
+                              │
+                              ▼
+                 Grounded Answer + Citations
+```
+
+---
+
+# 🔍 RAG Pipeline
+
+DocIntel AI implements an end-to-end **Retrieval-Augmented Generation** pipeline.
+
+The workflow consists of:
+
+1. PDF text extraction using PyMuPDF
+2. Section-aware document chunking
+3. BGE-M3 semantic embeddings
+4. BM25 lexical retrieval
+5. Hybrid Reciprocal Rank Fusion
+6. BGE cross-encoder reranking
+7. Context-grounded Qwen generation
+8. Document- and page-level citations
+
+### Retrieval Pipeline
+
+```text
+PDF
+ │
+ ▼
+Text Extraction
+ │
+ ▼
+Section Detection
+ │
+ ▼
+Chunking
+ │
+ ├───────────────┐
+ ▼               ▼
+BGE-M3          BM25
+ │               │
+ └───────┬───────┘
+         ▼
+     RRF Fusion
+         │
+         ▼
+    BGE Reranker
+         │
+         ▼
+ Relevant Context
+         │
+         ▼
+    Qwen 2.5 7B
+```
+
+## Reciprocal Rank Fusion
+
+The hybrid retrieval stage uses Reciprocal Rank Fusion (RRF).
+
+The RRF score is defined as:
+
+$$
+RRF(d) = \frac{1}{k + rank(d)}
+$$
+
+The configured value is:
+
+```python
+RRF_K = 60
+```
+
+Lexical-overlap and section-aware boosts are also applied to improve retrieval for exact technical terminology and document-specific queries.
+
+---
+
+# 🤖 LLM Stack
+
+| Component       | Technology              |
+| --------------- | ----------------------- |
+| LLM             | Qwen 2.5 7B             |
+| LLM Runtime     | Ollama                  |
+| Embeddings      | BAAI/BGE-M3             |
+| Reranker        | BAAI/BGE-Reranker-v2-m3 |
+| Vector Database | Qdrant                  |
+| Lexical Search  | BM25                    |
+| Validation      | Pydantic                |
+| Interface       | Streamlit               |
+
+The system is designed around **local AI inference**, making it suitable for privacy-sensitive document intelligence workflows where documents and inference should remain on the local machine.
+
+---
+
+# 🏢 Structured Document Intelligence
 
 DocIntel AI includes an LLM-based structured extraction pipeline for CVs and similar documents.
 
-
-
+```text
 PDF
-
-&#x20;│
-
-&#x20;▼
-
+ │
+ ▼
 Text Extraction
-
-&#x20;│
-
-&#x20;▼
-
+ │
+ ▼
 Qwen Structured Extraction
-
-&#x20;│
-
-&#x20;▼
-
+ │
+ ▼
 Structured JSON
-
-&#x20;│
-
-&#x20;▼
-
+ │
+ ▼
 Pydantic Validation
-
-&#x20;│
-
-&#x20;▼
-
+ │
+ ▼
 Post-Processing
+ │
+ ├── JSON Export
+ └── Excel Export
+```
 
-&#x20;│
+## Extraction Schema
 
-&#x20;├── JSON Export
+The extraction pipeline can identify information such as:
 
-&#x20;└── Excel Export
+* Name, email, phone, and location
+* GitHub and LinkedIn
+* Professional profile
+* Programming languages
+* Machine-learning frameworks
+* Machine-learning tools
+* Machine-learning methods
+* Data-science tools
+* Professional experience
+* Education
+* Publications
+* Human languages
 
+### Technical Skill Classification
 
+Post-processing rules help prevent technologies such as:
 
-The extraction schema includes:
+* NumPy
+* pandas
+* PyTorch
+* Git
+* Docker
+* MLflow
 
+from being incorrectly classified as programming languages.
 
+---
 
-Name, email, phone, location
+# 📚 Grounded Citations
 
-GitHub and LinkedIn
+Each retrieved document chunk contains metadata such as:
 
-Professional profile
-
-Programming languages
-
-ML frameworks
-
-ML tools
-
-ML methods
-
-Data-science tools
-
-Professional experience
-
-Education
-
-Publications
-
-Human languages
-
-
-
-Post-processing rules help prevent technologies such as NumPy, pandas, PyTorch, Git, Docker, and MLflow from being incorrectly classified as programming languages.
-
-
-
-📚 Grounded Citations
-
-
-
-Each retrieved chunk contains metadata:
-
-
-
-Document
-
-Page
-
-Chunk
-
-Section
-
-
+* Document
+* Page
+* Chunk
+* Section
 
 Example:
 
+```text
+[1] resume.pdf | Page: 2 | Chunk: 3 | Section: experience
+```
 
+This metadata allows generated answers to be traced back to the original document context.
 
-\[1] resume.pdf | Page: 2 | Chunk: 3 | Section: experience
+The goal is to make the generated response **grounded and traceable rather than relying only on the model's internal knowledge**.
 
+---
 
+# 🔬 Evaluation
 
-This allows generated answers to be traced back to the original document context.
+The project includes a lightweight **retrieval smoke test** for validating the retrieval pipeline.
 
+### Example Question
 
-
-🔬 Evaluation
-
-
-
-The project includes a lightweight retrieval smoke test.
-
-
-
-Example question:
-
-
-
+```text
 What programming languages does the candidate know?
+```
 
+### Expected Keywords
 
-
-Expected keywords:
-
-
-
+```text
 Python
-
 SQL
-
 Bash
-
 MATLAB
-
 Fortran
-
-
+```
 
 The evaluation reports:
 
+* Keyword Recall
+* Keywords Found
+* Keywords Expected
 
+This is intended as a **lightweight pipeline validation test**, not as a production-scale retrieval benchmark.
 
-Keyword Recall
+---
 
-Keywords Found
+# 🖥️ Application Workflow
 
-Keywords Expected
+The Streamlit application follows this workflow:
 
-
-
-This is a lightweight pipeline validation test rather than a production benchmark.
-
-
-
-🖥️ Application Workflow
-
+```text
 Upload PDF
-
-&#x20;   ↓
-
-Extract \& Index Document
-
-&#x20;   ↓
-
+    │
+    ▼
+Extract & Index Document
+    │
+    ▼
 Document Statistics
-
-&#x20;   ↓
-
+    │
+    ▼
 User Question
-
-&#x20;   ↓
-
+    │
+    ▼
 Hybrid Retrieval
-
-&#x20;   ↓
-
+    │
+    ▼
 BGE Reranking
-
-&#x20;   ↓
-
+    │
+    ▼
 Qwen LLM Generation
-
-&#x20;   ↓
-
+    │
+    ▼
 Answer + Citations
+```
 
+Users can also extract structured CV/document information and export the results as:
 
+* JSON
+* Excel
 
-Users can also extract structured CV/document information and export the results as JSON or Excel.
+---
 
+# 📦 Installation
 
+Install the required Python packages:
 
-📦 Installation
-
+```bash
 pip install streamlit pymupdf pandas requests pydantic sentence-transformers rank-bm25 qdrant-client openpyxl
+```
 
-🤖 Ollama Setup
+Alternatively, if the repository contains a `requirements.txt` file:
 
+```bash
+pip install -r requirements.txt
+```
 
+---
 
-Download the Qwen model:
+# 🤖 Ollama Setup
 
+DocIntel AI uses **Ollama** to run Qwen locally.
 
+Pull the Qwen model:
 
+```bash
 ollama pull qwen2.5:7b
+```
 
+Start the Ollama service:
 
-
-Start Ollama:
-
-
-
+```bash
 ollama serve
+```
 
+The application expects the Ollama generation API at:
 
-
-The application expects:
-
-
-
+```text
 http://localhost:11434/api/generate
+```
 
-▶️ Run the Application
+---
 
+# ▶️ Run the Application
 
+The main application is:
 
-Save the application as:
-
-
-
+```text
 app.py
+```
 
+Run Streamlit with:
 
-
-Run:
-
-
-
+```bash
 python -m streamlit run app.py
+```
 
+Then open the Streamlit URL displayed in the terminal.
 
+---
 
-Then open the Streamlit URL shown in the terminal.
+# ⚙️ Configuration
 
+The main configuration values are:
 
+```python
+COLLECTION_NAME = "docintel_documents"
 
-⚙️ Configuration
+EMBEDDING_MODEL_NAME = "BAAI/bge-m3"
 
-COLLECTION\_NAME = "docintel\_documents"
+RERANKER_MODEL_NAME = "BAAI/bge-reranker-v2-m3"
 
+VECTOR_SIZE = 1024
 
+OLLAMA_URL = "http://localhost:11434/api/generate"
 
+OLLAMA_MODEL = "qwen2.5:7b"
 
+RRF_K = 60
 
-EMBEDDING\_MODEL\_NAME = "BAAI/bge-m3"
+CHUNK_SIZE = 1200
 
+CHUNK_OVERLAP = 150
+```
 
+These parameters control the vector collection, embedding model, reranker, LLM endpoint, retrieval configuration, and document chunking behavior.
 
+---
 
+# 📂 Project Structure
 
-RERANKER\_MODEL\_NAME = "BAAI/bge-reranker-v2-m3"
-
-
-
-
-
-VECTOR\_SIZE = 1024
-
-
-
-
-
-OLLAMA\_URL = "http://localhost:11434/api/generate"
-
-
-
-
-
-OLLAMA\_MODEL = "qwen2.5:7b"
-
-
-
-
-
-RRF\_K = 60
-
-
-
-
-
-CHUNK\_SIZE = 1200
-
-CHUNK\_OVERLAP = 150
-
-📂 Project Structure
-
+```text
 docintel-ai/
-
+│
 ├── app.py
-
 ├── README.md
-
 ├── requirements.txt
-
 └── .gitignore
+```
 
-🛠️ Tech Stack
+---
 
+# 🛠️ Technology Stack
 
+| Category          | Technology   |
+| ----------------- | ------------ |
+| Language          | Python       |
+| Interface         | Streamlit    |
+| PDF Processing    | PyMuPDF      |
+| Vector Database   | Qdrant       |
+| Embeddings        | BGE-M3       |
+| Reranking         | BGE Reranker |
+| Lexical Retrieval | BM25         |
+| LLM               | Qwen 2.5 7B  |
+| Local Inference   | Ollama       |
+| Validation        | Pydantic     |
+| Data Processing   | Pandas       |
+| Excel Export      | OpenPyXL     |
 
-Python · Streamlit · PyMuPDF · Qdrant · Sentence Transformers · BGE-M3 · BGE Reranker · BM25 · Qwen 2.5 · Ollama · Pydantic · Pandas · OpenPyXL
+---
 
+# ⚠️ Current Limitations
 
+The current implementation has several limitations:
 
-⚠️ Current Limitations
+* Qdrant currently uses **in-memory storage**, so vectors are lost after application restart.
+* Scanned or image-only PDFs require an OCR pipeline.
+* Embedding and reranking models can require significant RAM/VRAM.
+* Ollama must be running locally for LLM generation and structured extraction.
+* The current retrieval evaluation is a lightweight smoke test rather than a comprehensive benchmark.
+* Production deployment would require additional authentication, security, monitoring, and persistence mechanisms.
 
-Qdrant currently uses in-memory storage, so vectors are lost after application restart.
+---
 
-Scanned/image-only PDFs require OCR.
-
-Embedding and reranking models can require significant RAM/VRAM.
-
-Ollama must be running locally for LLM generation and structured extraction.
-
-🚀 Enterprise Roadmap
-
-
+# 🚀 Enterprise Roadmap
 
 Potential production improvements include:
 
+* Authentication and role-based access control
+* Multi-user document isolation
+* Persistent Qdrant deployment
+* Document-level permissions
+* OCR and table extraction
+* PII detection and protection
+* Audit logging
+* Background document processing
+* Retrieval and generation evaluation datasets
+* Monitoring and observability
+* Model and version management
+* Retry and failure handling
+* Production-grade security
 
+---
 
-Authentication and role-based access control
+# 💡 Project Highlights
 
-Multi-user document isolation
+DocIntel AI demonstrates an end-to-end **LLM engineering and Document AI pipeline**:
 
-Persistent Qdrant deployment
-
-Document-level permissions
-
-OCR and table extraction
-
-PII detection and protection
-
-Audit logging
-
-Background document processing
-
-Retrieval and generation evaluation datasets
-
-Monitoring and observability
-
-Model/version management
-
-Retry and failure handling
-
-Production-grade security
-
-💡 Project Highlights
-
-
-
-DocIntel AI demonstrates an end-to-end LLM engineering and Document AI pipeline:
-
-
-
+```text
 Document Processing
-
-&#x20;       ↓
-
-Embeddings
-
-&#x20;       ↓
-
-Vector Search + BM25
-
-&#x20;       ↓
-
-Hybrid Retrieval
-
-&#x20;       ↓
-
-Reranking
-
-&#x20;       ↓
-
-RAG
-
-&#x20;       ↓
-
-Local LLM
-
-&#x20;       ↓
-
+        │
+        ▼
+    Embeddings
+        │
+        ▼
+ Vector Search + BM25
+        │
+        ▼
+ Hybrid Retrieval
+        │
+        ▼
+    Reranking
+        │
+        ▼
+       RAG
+        │
+        ▼
+   Local LLM
+        │
+        ▼
 Structured Extraction
-
-&#x20;       ↓
-
+        │
+        ▼
 Pydantic Validation
+        │
+        ▼
+ JSON / Excel Export
+```
 
-&#x20;       ↓
+The project showcases practical implementation of:
 
-JSON / Excel Export
+* Large Language Models (LLMs)
+* Retrieval-Augmented Generation (RAG)
+* Semantic search
+* Hybrid retrieval
+* Reciprocal Rank Fusion
+* Cross-encoder reranking
+* Natural Language Processing
+* Information extraction
+* Vector databases
+* Structured generation
+* Pydantic validation
+* Local AI inference
+* Document intelligence
 
+---
 
+# 👤 Author
 
-The project showcases practical implementation of LLMs, RAG, semantic search, hybrid retrieval, reranking, NLP, information extraction, vector databases, structured generation, and local AI inference.
+**Naeim Mousavi**
 
-
-
-👤 Author
-
-
-
-Naeim Mousavi
-
-
-
-DocIntel AI — Enterprise Document Intelligence Engine
-
-
+DocIntel AI — **Enterprise Document Intelligence Engine**
 
 © 2026 Naeim Mousavi
 
+---
 
+# 📄 License
 
-📄 License
-
-
-
-This project is licensed under the MIT License.
-
-
+This project is licensed under the **MIT License**.
 
 You may use, copy, modify, merge, publish, distribute, sublicense, and sell copies of the software, subject to the conditions of the MIT License.
 
-
-
-See the LICENSE file for the complete license text.
-
-
-
+See the `LICENSE` file for the complete license text.
